@@ -1,28 +1,52 @@
 * {
     box-sizing: border-box;
     padding: 0;
-    margin: 0;
+    margin: 0 auto;
+}
+
+body {
+    height: 100vh;
+    background-color: lightskyblue;
 }
 
 .page-title {
+    font-size: 2.25rem;
+    font-family: garamond, arial;
+    color: #01579b;
     text-align: center;
-    color: blue;
+    margin-bottom: 20px;
 }
 
-/* ------------ Game Information ------------ \*
+/* ------------ Game Information ------------ */
+.game {
+    width: 420px;
+    height: 560px;
+}
+
 .game-information {
-
+    font-size: 1.25rem;
+    font-family: perpetua, arial;
+    color: lightslategray;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
 }
 
+/*
+#remaining-time {
+}
+*/
 
-/* ------------ Game Grid ------------ \*
+/* ------------ Game Grid ------------ */
 .game-grid {
-
+    display: flex;
+    flex-flow: row wrap;
 }
 
-
-.card {
-
+.card img {
+    width: 100px;
+    height: 132px;
+    border: 2px solid black; 
 }
 
 
