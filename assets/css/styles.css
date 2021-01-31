@@ -18,18 +18,17 @@ body {
 }
 
 /* ------------ Game Information ------------ */
-.game {
-    width: 420px;
-    height: 560px;
-}
-
 .game-information {
-    font-size: 1.25rem;
-    font-family: perpetua, arial;
-    color: lightslategray;
     display: flex;
     flex-flow: row wrap;
     justify-content: center;
+    width: 420px;
+}
+
+.game-information-text {
+    font-size: 1.25rem;
+    font-family: perpetua, arial;
+    color: lightslategray;
 }
 
 /*
@@ -39,14 +38,22 @@ body {
 
 /* ------------ Game Grid ------------ */
 .game-grid {
+    width: 400px;
+    height: 528px;
     display: flex;
     flex-flow: row wrap;
 }
 
-.card img {
+.card {
+    border: 2px solid black; 
     width: 100px;
     height: 132px;
-    border: 2px solid black; 
+    position: relative;
 }
 
+.card-front, .card-back {
+    width: 100%;  
+    height: 100%;
+    position: absolute;
+}
 
