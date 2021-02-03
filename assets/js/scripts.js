@@ -1,14 +1,3 @@
-// currently using global variables, would be nice to change
-let cards =  Array.from(document.getElementsByClassName('card'));
-let matchedCards = [];
-
-let firstTurnOfTwo = true;
-let firstCard, secondCard;
-let gridActive = true;
-
-let totalClicks = 0;
-let timeRemaining = 100;
-
 function canTurnCard(card){
     return (gridActive && !matchedCards.includes(card) && (card != firstCard));
 }
@@ -25,23 +14,29 @@ function checkForWin(){
     return false;
 }
 
+function displayWinningMessage(){
+    setTimeout(function(){
+                alert('Congratulations old chap. You won!');
+            }, 750);
+}
+
 function checkForMatch(firstCard, secondCard){
+    gridActive = false;
+
     if(firstCard.getAttribute('data-pm') === secondCard.getAttribute('data-pm')){
         matchedCards.push(firstCard);
         matchedCards.push(secondCard);
         if(checkForWin()){
-            setTimeout(function(){
-                alert('Congratulations old chap. You won!');
-            }, 500);
+            displayWinningMessage();
         }
+        gridActive = true;
     }
     else{
-        //gridActive = false;
         setTimeout(function(){ 
             firstCard.classList.toggle('turned');
             secondCard.classList.toggle('turned');
+            gridActive = true;
         }, 750);
-        //gridActive = True;
     }
 }
 
@@ -58,13 +53,12 @@ function turnCard(){
         return;
     }
     
-    firstTurnOfTwo = true;
     secondCard = this;
-    
     checkForMatch(firstCard, secondCard);
+    
     firstCard = null;
     secondCard = null;
-    
+    firstTurnOfTwo = true;
 }
 
 // Durstenfeld shuffle
@@ -78,6 +72,18 @@ function shuffleCards(cards){
     }
 }
 
+// Gameplay
+
+// currently using global variables, would be nice to change
+let cards =  Array.from(document.getElementsByClassName('card'));
+let matchedCards = [];
+
+let firstTurnOfTwo = true;
+let firstCard, secondCard;
+let gridActive = true;
+
+let totalClicks = 0;
+let timeRemaining = 100;
 shuffleCards(cards);
 
 for(let i = 0; i < cards.length; i++){
