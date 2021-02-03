@@ -1,5 +1,5 @@
 function canTurnCard(card){
-    return (gridActive && !matchedCards.includes(card) && (card != firstCard));
+    return (gameActive && !matchedCards.includes(card) && (card != firstCard));
 }
 
 function updateClicks(){
@@ -14,28 +14,32 @@ function checkForWin(){
     return false;
 }
 
-function displayWinningMessage(){
-    setTimeout(function(){
-                alert('Congratulations old chap. You won!');
-            }, 750);
+function celebrateVictory(){
+    // setTimeout(function(){
+    //             alert('Congratulations old chap. You won!');
+    //         }, 750);
+    victorySound.play();
 }
 
 function checkForMatch(firstCard, secondCard){
-    gridActive = false;
+    gameActive = false;
 
     if(firstCard.getAttribute('data-pm') === secondCard.getAttribute('data-pm')){
+        
+        matchingSound.play();
+
         matchedCards.push(firstCard);
         matchedCards.push(secondCard);
         if(checkForWin()){
-            displayWinningMessage();
+            celebrateVictory();
         }
-        gridActive = true;
+        gameActive = true;
     }
     else{
         setTimeout(function(){ 
             firstCard.classList.toggle('turned');
             secondCard.classList.toggle('turned');
-            gridActive = true;
+            gameActive = true;
         }, 750);
     }
 }
@@ -80,10 +84,15 @@ let matchedCards = [];
 
 let firstTurnOfTwo = true;
 let firstCard, secondCard;
-let gridActive = true;
+let gameActive = true;
 
 let totalClicks = 0;
 let timeRemaining = 100;
+
+let matchingSound = new Audio('assets/sounds/trumpet.wav');
+matchingSound.playbackRate = 1.5;
+let victorySound = new Audio('assets/sounds/ship_shape.wav');
+
 shuffleCards(cards);
 
 for(let i = 0; i < cards.length; i++){
