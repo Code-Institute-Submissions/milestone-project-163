@@ -1,11 +1,27 @@
-function canTurnCard(card){
-    return (gameActive && !matchedCards.includes(card) && (card != firstCard));
-}
+/* ------------ Game Information ------------ */
 
 function updateClicks(){
     totalClicks++;
     document.getElementById('cards-clicked').innerText = totalClicks;
 }
+
+function updateTimeRemaining(){
+    if(timeRemaining > 0){
+        timeRemaining --;
+        document.getElementById('remaining-time').innerHTML = timeRemaining;
+    }
+    else{
+        clearInterval(intervalId);
+        announceGameover();
+    }
+}
+
+/* ------------ Gameplay ------------ */
+
+function canTurnCard(card){
+    return (gameActive && !matchedCards.includes(card) && (card != firstCard));
+}
+
 
 function checkForWin(){
     if(matchedCards.length === cards.length){
@@ -14,11 +30,17 @@ function checkForWin(){
     return false;
 }
 
-function celebrateVictory(){
+function announceVictory(){
     // setTimeout(function(){
     //             alert('Congratulations old chap. You won!');
     //         }, 750);
+    gameActive = false;
     victorySound.play();
+}
+
+function announceGameover(){
+    gameActive = false;
+    gameoverSound.play();
 }
 
 function checkForMatch(firstCard, secondCard){
@@ -31,7 +53,7 @@ function checkForMatch(firstCard, secondCard){
         matchedCards.push(firstCard);
         matchedCards.push(secondCard);
         if(checkForWin()){
-            celebrateVictory();
+            announceVictory();
         }
         gameActive = true;
     }
@@ -92,8 +114,10 @@ let timeRemaining = 100;
 let matchingSound = new Audio('assets/sounds/trumpet.wav');
 matchingSound.playbackRate = 1.5;
 let victorySound = new Audio('assets/sounds/ship_shape.wav');
+let gameoverSound = new Audio('assets/sounds/gameover.wav');
 
 shuffleCards(cards);
+let intervalId = setInterval(updateTimeRemaining, 1000);
 
 for(let i = 0; i < cards.length; i++){
     card = cards[i];

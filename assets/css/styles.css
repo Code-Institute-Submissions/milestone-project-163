@@ -38,8 +38,8 @@ body {
 
 /* ------------ Game Grid ------------ */
 .game-grid {
-    width: 410px;
     height: 540px;
+    width: 420px;
     display: flex;
     flex-flow: row wrap;
     perspective: 1000px;
@@ -71,3 +71,11 @@ body {
     transform: rotateY(180deg);
 }
 
+@media screen and (max-width: 600px) {
+  .game-information {
+     width: 205px;
+  }
+  .game-grid {
+     width: 205px;
+  }
+}
