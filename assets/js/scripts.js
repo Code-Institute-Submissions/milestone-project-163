@@ -1,5 +1,10 @@
 /* ------------ Game Information ------------ */
 
+function configureGameInformation(){
+    document.getElementById('cards-clicked').innerText = totalClicks;
+    document.getElementById('remaining-time').innerHTML = timeRemaining;
+}
+
 function updateClicks(){
     totalClicks++;
     document.getElementById('cards-clicked').innerText = totalClicks;
@@ -16,6 +21,16 @@ function updateTimeRemaining(){
     }
 }
 
+function playMatchingSound(){
+    if(matchingSoundAudio == 1){
+        matchingSound1.play();
+        matchingSoundAudio = 2;
+    }
+    else {
+        matchingSound2.play();
+        matchingSoundAudio = 1;
+    }
+}
 
 /* ------------ Gameplay ------------ */
 
@@ -53,8 +68,7 @@ function checkForMatch(firstCard, secondCard){
     gameActive = false;
 
     if(firstCard.getAttribute('data-pm') === secondCard.getAttribute('data-pm')){
-        
-        matchingSound.play();
+        playMatchingSound();
 
         matchedCards.push(firstCard);
         matchedCards.push(secondCard);
@@ -116,7 +130,8 @@ function startGame(){
     gameActive = true;
 
     totalClicks = 0;
-    timeRemaining = 100;
+    timeRemaining = 5;
+    configureGameInformation();
 
     // reset cards to be face down
     for(let card in cards){
@@ -145,8 +160,14 @@ function toggleOverlay(overlay) {
 
 /* ------------ Sound Effects ------------ */
 
-let matchingSound = new Audio('assets/sounds/trumpet.wav');
-matchingSound.playbackRate = 1.5;
+// hack to ensure a matching sound is always triggered
+// alternate between the two to avoid calling whilst mid-playback
+let matchingSound1 = new Audio('assets/sounds/trumpet.wav');
+matchingSound1.playbackRate = 1.5;
+let matchingSound2 = new Audio('assets/sounds/trumpet.wav');
+matchingSound2.playbackRate = 1.5;
+let matchingSoundAudio = 1;
+
 let victorySound = new Audio('assets/sounds/victory_piano.wav');
 victorySound.playbackRate = 1.0;
 let gameoverSound = new Audio('assets/sounds/gameover_piano.wav');
@@ -169,17 +190,12 @@ for(card in cards){
     cards[card].addEventListener('click', turnCard);
 }
 
-// fetch overlays
+// fetch overlays and add event listeners
 startOverlay = document.getElementById('start-overlay');
 victoryOverlay = document.getElementById('victory-overlay');
 gameoverOverlay = document.getElementById('gameover-overlay');
 
 overlays = Array.from(document.getElementsByClassName('overlay'));
 for(overlay in overlays){
-    overlays[overlay].addEventListener('dblclick', startGame);
+    overlays[overlay].addEventListener('click', startGame);
 }
-
-// startOverlay.addEventListener('click', startGame);
-// victoryOverlay.addEventListener('click', startGame);
-// gameoverOverlay.addEventListener('click', startGame);
-

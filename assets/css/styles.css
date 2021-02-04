@@ -92,6 +92,15 @@ body {
     justify-content: center;
     text-align: center;
     padding-top: 20%;
+
+    /* to prevent accidental text selection when double-clicking to re/start game */
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
 }
 
 .overlay.hidden {
