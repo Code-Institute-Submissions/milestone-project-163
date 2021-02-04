@@ -118,6 +118,13 @@ function startGame(){
     totalClicks = 0;
     timeRemaining = 100;
 
+    // reset cards to be face down
+    for(let card in cards){
+        if(cards[card].classList.contains('turned')){
+            cards[card].classList.remove('turned');
+        }
+    }
+
     shuffleCards(cards);
     toggleOverlay(this);
     intervalId = setInterval(updateTimeRemaining, 1000);
