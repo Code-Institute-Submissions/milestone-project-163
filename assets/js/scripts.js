@@ -5,16 +5,17 @@ function updateClicks(){
     document.getElementById('cards-clicked').innerText = totalClicks;
 }
 
+
 function updateTimeRemaining(){
     if(timeRemaining > 0){
         timeRemaining --;
         document.getElementById('remaining-time').innerHTML = timeRemaining;
     }
     else{
-        clearInterval(intervalId);
         announceGameover();
     }
 }
+
 
 /* ------------ Gameplay ------------ */
 
@@ -30,18 +31,23 @@ function checkForWin(){
     return false;
 }
 
+
 function announceVictory(){
-    // setTimeout(function(){
-    //             alert('Congratulations old chap. You won!');
-    //         }, 750);
+    clearInterval(intervalId);
     gameActive = false;
     victorySound.play();
+    toggleOverlay(victoryOverlay);
+
 }
 
+
 function announceGameover(){
+    clearInterval(intervalId);
     gameActive = false;
     gameoverSound.play();
+    toggleOverlay(gameoverOverlay);
 }
+
 
 function checkForMatch(firstCard, secondCard){
     gameActive = false;
@@ -66,6 +72,7 @@ function checkForMatch(firstCard, secondCard){
     }
 }
 
+
 function turnCard(){
     if(!canTurnCard(this)){
         return;
@@ -87,6 +94,7 @@ function turnCard(){
     firstTurnOfTwo = true;
 }
 
+
 // Durstenfeld shuffle
 function shuffleCards(cards){
     for(let i = cards.length - 1; i > 0; i--){
@@ -98,28 +106,73 @@ function shuffleCards(cards){
     }
 }
 
-// Gameplay
 
-// currently using global variables, would be nice to change
-let cards =  Array.from(document.getElementsByClassName('card'));
-let matchedCards = [];
+function startGame(){
+   
+    matchedCards = [];
 
-let firstTurnOfTwo = true;
-let firstCard, secondCard;
-let gameActive = true;
+    firstTurnOfTwo = true;
+    firstCard = null, secondCard = null;
+    gameActive = true;
 
-let totalClicks = 0;
-let timeRemaining = 100;
+    totalClicks = 0;
+    timeRemaining = 100;
+
+    shuffleCards(cards);
+    toggleOverlay(this);
+    intervalId = setInterval(updateTimeRemaining, 1000);
+
+}
+
+
+function toggleOverlay(overlay) {
+    if(overlay.classList.contains('hidden')){
+        overlay.classList.remove('hidden');
+        overlay.classList.add('visible');
+    } else {
+        overlay.classList.remove('visible');
+        overlay.classList.add('hidden');
+    }
+}
+
+
+/* ------------ Sound Effects ------------ */
 
 let matchingSound = new Audio('assets/sounds/trumpet.wav');
 matchingSound.playbackRate = 1.5;
-let victorySound = new Audio('assets/sounds/ship_shape.wav');
-let gameoverSound = new Audio('assets/sounds/gameover.wav');
+let victorySound = new Audio('assets/sounds/victory_piano.wav');
+victorySound.playbackRate = 1.0;
+let gameoverSound = new Audio('assets/sounds/gameover_piano.wav');
+gameoverSound.playbackRate = 1.0;
 
-shuffleCards(cards);
-let intervalId = setInterval(updateTimeRemaining, 1000);
+/* ------------ Flow of Game ------------ */
+let matchedCards = [];
 
-for(let i = 0; i < cards.length; i++){
-    card = cards[i];
-    cards[i] = card.addEventListener('click', turnCard);
+let firstTurnOfTwo;
+let firstCard, secondCard;
+let gameActive;
+
+let totalClicks;
+let timeRemaining;
+let intervalId;
+
+// fetch cards and add event listeners
+let cards =  Array.from(document.getElementsByClassName('card'));
+for(card in cards){
+    cards[card].addEventListener('click', turnCard);
 }
+
+// fetch overlays
+startOverlay = document.getElementById('start-overlay');
+victoryOverlay = document.getElementById('victory-overlay');
+gameoverOverlay = document.getElementById('gameover-overlay');
+
+overlays = Array.from(document.getElementsByClassName('overlay'));
+for(overlay in overlays){
+    overlays[overlay].addEventListener('dblclick', startGame);
+}
+
+// startOverlay.addEventListener('click', startGame);
+// victoryOverlay.addEventListener('click', startGame);
+// gameoverOverlay.addEventListener('click', startGame);
+
