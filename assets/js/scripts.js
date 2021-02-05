@@ -1,3 +1,44 @@
+/* ------------ Sound Effects ------------ */
+
+// hack to ensure a matching sound is always triggered
+// alternate between the two to avoid calling whilst mid-playback
+var matchingSound1 = new Audio('assets/sounds/trumpet.wav');
+matchingSound1.playbackRate = 1.5;
+var matchingSound2 = new Audio('assets/sounds/trumpet.wav');
+matchingSound2.playbackRate = 1.5;
+var matchingSoundAudio = 1;
+
+var victorySound = new Audio('assets/sounds/victory_piano.wav');
+victorySound.playbackRate = 1.0;
+var gameoverSound = new Audio('assets/sounds/gameover_piano.wav');
+gameoverSound.playbackRate = 1.0;
+
+/* ------------ Flow of Game ------------ */
+var matchedCards = [];
+
+var firstTurnOfTwo;
+var firstCard, secondCard;
+var gameActive;
+
+var totalClicks;
+var timeRemaining;
+var intervalId;
+
+// fetch cards and add event listeners
+var cards =  Array.from(document.getElementsByClassName('card'));
+for(var i = 0; i < cards.length; i++){
+    cards[i].addEventListener('click', turnCard);
+}
+
+// fetch overlays and add event listeners
+var victoryOverlay = document.getElementById('victory-overlay');
+var gameoverOverlay = document.getElementById('gameover-overlay');
+
+var overlays = Array.from(document.getElementsByClassName('overlay'));
+for(var i = 0; i <  overlays.length; i++){
+    overlays[i].addEventListener('click', startGame);
+}
+
 /* ------------ Game Information ------------ */
 
 function configureGameInformation(){
@@ -110,10 +151,11 @@ function turnCard(){
 
 
 // Durstenfeld shuffle
+// https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle
 function shuffleCards(cards){
-    for(let i = cards.length - 1; i > 0; i--){
+    for(var i = cards.length - 1; i > 0; i--){
         // given index i, take random index j < i
-        let j = Math.floor(Math.random() * (i + 1));
+        var j = Math.floor(Math.random() * (i + 1));
             // interchange orderings of the ith and jth cards
             cards[j].style.order = i;
             cards[i].style.order = j;
@@ -126,15 +168,16 @@ function startGame(){
     matchedCards = [];
 
     firstTurnOfTwo = true;
-    firstCard = null, secondCard = null;
+    firstCard = null;
+    secondCard = null;
     gameActive = true;
 
     totalClicks = 0;
-    timeRemaining = 5;
+    timeRemaining = 100;
     configureGameInformation();
 
     // reset cards to be face down
-    for(let card in cards){
+    for(var card in cards){
         if(cards[card].classList.contains('turned')){
             cards[card].classList.remove('turned');
         }
@@ -155,47 +198,4 @@ function toggleOverlay(overlay) {
         overlay.classList.remove('visible');
         overlay.classList.add('hidden');
     }
-}
-
-
-/* ------------ Sound Effects ------------ */
-
-// hack to ensure a matching sound is always triggered
-// alternate between the two to avoid calling whilst mid-playback
-let matchingSound1 = new Audio('assets/sounds/trumpet.wav');
-matchingSound1.playbackRate = 1.5;
-let matchingSound2 = new Audio('assets/sounds/trumpet.wav');
-matchingSound2.playbackRate = 1.5;
-let matchingSoundAudio = 1;
-
-let victorySound = new Audio('assets/sounds/victory_piano.wav');
-victorySound.playbackRate = 1.0;
-let gameoverSound = new Audio('assets/sounds/gameover_piano.wav');
-gameoverSound.playbackRate = 1.0;
-
-/* ------------ Flow of Game ------------ */
-let matchedCards = [];
-
-let firstTurnOfTwo;
-let firstCard, secondCard;
-let gameActive;
-
-let totalClicks;
-let timeRemaining;
-let intervalId;
-
-// fetch cards and add event listeners
-let cards =  Array.from(document.getElementsByClassName('card'));
-for(card in cards){
-    cards[card].addEventListener('click', turnCard);
-}
-
-// fetch overlays and add event listeners
-startOverlay = document.getElementById('start-overlay');
-victoryOverlay = document.getElementById('victory-overlay');
-gameoverOverlay = document.getElementById('gameover-overlay');
-
-overlays = Array.from(document.getElementsByClassName('overlay'));
-for(overlay in overlays){
-    overlays[overlay].addEventListener('click', startGame);
 }

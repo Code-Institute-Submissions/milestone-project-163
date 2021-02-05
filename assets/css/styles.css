@@ -1,3 +1,5 @@
+/* ------------ General ------------ */
+
 * {
     box-sizing: border-box;
     padding: 0;
@@ -9,6 +11,8 @@ body {
     background-color: lightskyblue;
 }
 
+/* ------------ Title ------------ */
+
 .page-title {
     font-size: 2.25rem;
     font-family: garamond, arial;
@@ -18,6 +22,7 @@ body {
 }
 
 /* ------------ Game Information ------------ */
+
 .game-information {
     display: flex;
     flex-flow: row wrap;
@@ -31,12 +36,8 @@ body {
     color: lightslategray;
 }
 
-/*
-#remaining-time {
-}
-*/
-
 /* ------------ Game Grid ------------ */
+
 .game-grid {
     height: 540px;
     width: 420px;
@@ -71,14 +72,7 @@ body {
     transform: rotateY(180deg);
 }
 
-@media screen and (max-width: 600px) {
-  .game-information {
-     width: 205px;
-  }
-  .game-grid {
-     width: 205px;
-  }
-}
+/* ------------ Overlays ------------ */
 
 .overlay {
     width: 100%;
@@ -113,4 +107,15 @@ body {
 
 #start-overlay {
     display: block;
+}
+
+/* ------------ Media Queries ------------ */
+
+@media screen and (max-width: 600px) {
+  .game-information {
+     width: 205px;
+  }
+  .game-grid {
+     width: 205px;
+  }
 }
