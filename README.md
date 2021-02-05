@@ -26,12 +26,6 @@ User stories:
 - Anyone looking to stimulate their memory through a game requiring minimal effort to grasp
 - Possibly school children who, it is hoped, will take some interest in their political leaders - past and present - after encountering them in an enjoyable scenario.
 
-
-## Problems Encountered:
-- Accidentally highlighting or selecting overlay text when trying to start or restart a game.
-Solution: Set the user-select property of the overlay class to be none, as described in an answer on
-https://stackoverflow.com/questions/5429827/how-can-i-prevent-text-element-selection-with-cursor-drag
-
 ### Five Planes ###
 * Strategy: The site exists to host a fun variant of a classic game to be played for leisure and mental stimulation.
 
@@ -65,15 +59,15 @@ Overlays:
     * Victory - appearing after the user has 'won' by matching all cards with the alloted time
     * Gameover - appearin after the user has 'lost' by not matching all cards before the timer runs out
 
-[New Game Overlay](https://github.com/spf34/milestone-project-2/tree/master/assets/images/gameplay/home_screen.png)
-[Victory Overlay](https://github.com/spf34/milestone-project-2/tree/master/assets/images/gameplay/victory.png)
-[Gameover Overlay](https://github.com/spf34/milestone-project-2/tree/master/assets/images/gameplay/gameover.png)
+- [New Game Overlay](https://github.com/spf34/milestone-project-2/tree/master/assets/images/gameplay/home_screen.png)
+- [Victory Overlay](https://github.com/spf34/milestone-project-2/tree/master/assets/images/gameplay/victory.png)
+- [Gameover Overlay](https://github.com/spf34/milestone-project-2/tree/master/assets/images/gameplay/gameover.png)
 
 Game Information:
 - We store the number of moves made by the user and the time remainaing until gameover above the game grid
 - These elements are dynamically updated in Javascript as the game progresses
 
-[Game Information](https://github.com/spf34/milestone-project-2/tree/master/assets/images/gameplay/play_begins.png)
+- [Game Information](https://github.com/spf34/milestone-project-2/tree/master/assets/images/gameplay/play_begins.png)
 
 Interactive Game and Game Grid
 - Each of the 16 cards is clickable and will turn over if it is not already part of a matched pair
@@ -90,8 +84,8 @@ Interactive Game and Game Grid
     * Overlapping matches are handled in such a way that both sound clips will play
     * Upbeat and downbeat piano clips play upon victory and gameover, respectively
 
-[Matched Cards](https://github.com/spf34/milestone-project-2/tree/master/assets/images/gameplay/first_match.png)
-[Middle of Move](https://github.com/spf34/milestone-project-2/tree/master/assets/images/gameplay/mid_turn.png)
+- [Matched Cards](https://github.com/spf34/milestone-project-2/tree/master/assets/images/gameplay/first_match.png)
+- [Middle of Move](https://github.com/spf34/milestone-project-2/tree/master/assets/images/gameplay/mid_turn.png)
 
 ## Technologies, Frameworks & Tools Used ##
 - HTML/HTML5
@@ -122,19 +116,29 @@ Interactive Game and Game Grid
     * Checking for and removing any unused CSS classes
     * Viewing the game on all of the available devices in Chrome developer tools. Several issues discovered this way and fixed satisfactorily. In particular, the inability to use a double click feature to trigger events. 
     * Test switch from 4 columns to 2 columns on smaller devices
-    * Test using Chrome and Safari
+    * Test using Chrome and Safari - I noticed at the last minute that there seem to be some real problems on Safari with cards not rendering properly when turning and sometimes remaining facedown after clicking
 
 ## Bugs ##
+I encountered issues relating to the logic of the game that necessitated almost all of the 'Gameplay' tests above as these were things that had already gone wrong
+Further issues that proved particularly difficult to debug were:
+* Ensuring cards turned correctly. For this I relied on source #1 listed in the Credits/Code section below
+* Preventing more than two moves being made in any one turn. The solution makes use of a Boolean that determines whether the game is active at any given time and so can process requests to turn cards. I eventually realised that I needed to include the line that set this parameter to be true, following checking for a match, to sit within a setTimeout function for it to work as intended 
+* Ensuring two matching sounds could play when matches overlapped (in terms of the sound clip). The solution I found was to have two Audio objects that can play this sound and to alternate between them as their play methods are called. This may not generalise well but seemed to work quite well in this situation
+* Accidentally highlighting or selecting overlay text when trying to start or restart a game. A solution was to set the user-select property of the overlay class to be none, as described in an answer on stackoverflow:
+-[How can I prevent text/element selection with cursor drag](https://stackoverflow.com/questions/5429827/how-can-i-prevent-text-element-selection-with-cursor-drag)
 
 
 ### Unresolved ###
-- Victory/Gameover sounds can still be playing at the start of a new game if it was triggered quickly enough. I attempted to use a setTimeout method before triggereing a new game to allow time for these clips to finish but encountered issues handling the overlays that I did not get to the bottom of
-- Shuffling algorithm used may not be fully random on all cards. As an example, card 1 seems fixed more than might be expected.
+- The game appears to be incompatible with Safari in its current incarnation. This would be the first thing to investigate fgoing forward
+- Victory/Gameover sound can still be playing at the start of a new game if it was triggered quickly enough. I attempted to use a setTimeout method before triggering a new game to allow time for these clips to finish but encountered issues handling the overlays that I did not get to the bottom of
+- Shuffling algorithm used may not be fully random on all cards. As an example, card 1 seems fixed more than might be expected
+- No Gameover sound is triggered if the user has made no move at all during the game. I discovered that this feature has been added to combat autplay on websites and seems to pose no real problem
+
 
 ## Deployment ##
 This section closely follows the example given here: [README example](https://github.com/AJGreaves/portrait-artist/blob/master/README.md)
 
-The project was developed using the Gitpod IDE and committed to github with git.
+The project was developed using the Gitpod IDE and committed to github with git
 
 The project was deployed from its [GitHub repository](https://github.com/spf34/milestone-project-2) to GitHub pages using the usual steps:
 1. Navigate to the repository on GitHub
@@ -147,14 +151,14 @@ The project was deployed from its [GitHub repository](https://github.com/spf34/m
 
 ### Code ###
 The overall sturcture of my code, and particularly the way in which HTML & CSS were used to form the game grid and allow cards to be turned, very closely follows a mixture of the following three sources:
-[Memory Card Game - JavaScript Tutorial](https://www.youtube.com/watch?v=ZniVgo8U7ek&ab_channel=freeCodeCamp.org)
-[How to Code a Card Matching Game](https://www.youtube.com/watch?v=28VfzEiJgy4&t=0s)
-[Live Coding a Memory Game: HTML, CSS, Javascript](https://www.youtube.com/watch?v=bbb9dZotsOc)
+1. [Memory Card Game - JavaScript Tutorial](https://www.youtube.com/watch?v=ZniVgo8U7ek&ab_channel=freeCodeCamp.org)
+2. [How to Code a Card Matching Game](https://www.youtube.com/watch?v=28VfzEiJgy4&t=0s)
+3. [Live Coding a Memory Game: HTML, CSS, Javascript](https://www.youtube.com/watch?v=bbb9dZotsOc)
 
 ### Media ###
 
 #### Sounds: ####
-All sounds were sourced from https://freesound.org.
+All sounds were sourced from https://freesound.org
 
 #### Images: ####
 Sourced from the Wikipedia page 'List of Prime Ministers of the United Kingdom':
