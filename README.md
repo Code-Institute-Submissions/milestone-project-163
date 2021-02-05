@@ -1,33 +1,33 @@
 # Match the Ministers
 
 ### A simple Javascript memory game where players must match up British prime ministers.
-Match the Ministers is an example of a classic memory game. 
-The game consists of 16 cards - in this instance - split into 8 pairs.
-All cards share identical 'backs', with the 'fronts' displaying one of 8 British prime ministers.
+Match the Ministers is an example of a classic memory game
+The game consists of 16 cards - in this instance - split into 8 pairs
+All cards share identical 'backs', with the 'fronts' displaying one of 8 British prime ministers
 
 The chosen ministers are:
-Gordon Brown, David Cameron, Neville Chamberlain, Winston Churchill, Anthony Eden, Boris Johnson, John Major and Theresa May.
-Please note that the selection was random and no political leanings should be inferred.
+Gordon Brown, David Cameron, Neville Chamberlain, Winston Churchill, Anthony Eden, Boris Johnson, John Major and Theresa May
+Please note that the selection was random and no political leanings should be inferred
 
 ### Gameplay ###
-- The single-player game consists of the player turning over cards, two by two, until the full grid of cards has been 'matched'.
-- A match occurs when the two cards turned over by a player within one 'move' show the same prime minister.
-- A timer will being counting down from 100 (seconds) the beginning of the game. The player must match all cards before time runs out.
-- The number of moves, of 'turns', made by a player will be recorded, with the goal being to complete the game in as few moves as possible.
+- The single-player game consists of the player turning over cards, two by two, until the full grid of cards has been 'matched'
+- A match occurs when the two cards turned over by a player within one 'move' show the same prime minister
+- A timer will begin counting down from 100 (seconds) when the game starts. The player must match all cards before time runs out
+- The number of moves, or 'turns', made by a player will be recorded, with the goal being to complete the game in as few moves as possible
 
 ### Application Features ###
 
 The current key features of the application are:
-* Providing a simple, intuitive and fun online game that can be played in a short period of time.
-* Possibly stoking interest in who past prime ministers might have been in the case that the user does not recognise their image.
+* Providing a simple, intuitive and fun online game that can be played in a short period of time
+* Possibly stoking interest in who past prime ministers might have been in the case that the user does not recognise their image
 
 ## UX ##
 User stories:
 - Anyone looking to stimulate their memory through a game requiring minimal effort to grasp
-- Possibly school children who, it is hoped, will take some interest in their political leaders - past and present - after encountering them in an enjoyable scenario.
+- Possibly school children who, it is hoped, will take some interest in their political leaders - past and present - after encountering them in an enjoyable scenario
 
 ### Five Planes ###
-* Strategy: The site exists to host a fun variant of a classic game to be played for leisure and mental stimulation.
+* Strategy: The site exists to host a fun variant of a classic game to be played for leisure and mental stimulation
 
 * Scope: The requirements of the site can all be addressed with a single page consisting of:
     - Title indicating nature of the site ('Match the Minister')
@@ -35,7 +35,7 @@ User stories:
     - Game information, e.g. tracking time remainaing and moves made
     - Ability to start/restart the game when appropriate 
 
-* Structure: The below images show wireframes for the desktop and mobile versions of the site, as well as how the overlay would work in the desktop case. The mobile variant follows the same pattern.
+* Structure: The below images show wireframes for the desktop and mobile versions of the site, as well as how the overlay would work in the desktop case. The mobile variant follows the same pattern
 
     #### Wireframes ####
 
@@ -43,12 +43,12 @@ User stories:
     - [Desktop Overlay](https://github.com/spf34/milestone-project-2/tree/master/assets/images/wireframes/desktop_overlay.png)
     - [Mobile](https://github.com/spf34/milestone-project-2/tree/master/assets/images/wireframes/mobile.png)
   
-* Skeleton: In concrete terms, the game will be based around a flexbox table consisting of equally sized card objects. 
-It will be necessary for the cards to be two-sided, represented by 'front' and 'back' face classes, and to be able to 'rotate' to toggle the users' view between the two.
-The underlying logic behind how this is achieved closely follows sources 1 and 2 outlined in the Code/Credits section below.
+* Skeleton: In concrete terms, the game will be based around a flexbox table consisting of equally sized card objects
+It will be necessary for the cards to be two-sided, represented by 'front' and 'back' face classes, and to be able to 'rotate' to toggle the users' view between the two
+The underlying logic behind how this is achieved closely follows sources 1 and 2 outlined in the Code/Credits section below
 
-* Surface: Visually, the page will make use of a family of clean blues for the title and background, with white for the overlay text and a classical, official image for the card backs. 
-Together these design choices aim to evoke the idea of tradition associated with the post of prime minister.
+* Surface: Visually, the page will make use of a family of clean blues for the title and background, with white for the overlay text and a classical, official image for the card backs
+Together these design choices aim to evoke the idea of tradition associated with the post of prime minister
 
 ## Features ##
 
@@ -66,8 +66,10 @@ Overlays:
 Game Information:
 - We store the number of moves made by the user and the time remainaing until gameover above the game grid
 - These elements are dynamically updated in Javascript as the game progresses
+    <br>
 
-* [Game Information](https://github.com/spf34/milestone-project-2/tree/master/assets/images/gameplay/play_begins.png)
+    [Game Information](https://github.com/spf34/milestone-project-2/tree/master/assets/images/gameplay/play_begins.png)
+
 
 Interactive Game and Game Grid
 - Each of the 16 cards is clickable and will turn over if it is not already part of a matched pair
@@ -104,7 +106,7 @@ Interactive Game and Game Grid
     * Warning on iterating through array objects directly instead of using an index for access
     * Unused variable definition warning
 - Gameplay:
-    * Check that number of clicks are correctly recorded. In particular, this includes not counting clicks as part of illegitimate moves
+    * Check that number of clicks is correctly recorded. In particular, this includes not counting clicks as part of illegitimate moves
     * Check that time remaining is correctly recorded and gameover is triggered upon reaching zero
     * Check that overlays respond to click events and cause a clean new game to be started, including reset of time remaining, clicks made and resetting all cards to be facedown
     * Check that the appropriate overlay is triggered by the appropriate event

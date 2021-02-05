@@ -46,6 +46,12 @@ body {
     perspective: 1000px;
 }
 
+/* 
+Note that this section is closely based on sources #1 and #2 outlined in the project README. Namely:
+1. [Memory Card Game - JavaScript Tutorial](https://www.youtube.com/watch?v=ZniVgo8U7ek&ab_channel=freeCodeCamp.org)
+2. [How to Code a Card Matching Game](https://www.youtube.com/watch?v=28VfzEiJgy4&t=0s) 
+*/
+
 .card {
     border: 2px solid black; 
     width: 100px;
